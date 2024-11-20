@@ -10,8 +10,10 @@ body {
   font-style: normal;
   font-size: 30px;
 }
+
 .logo {
   width: 125px;
+  margin-right: 100px;
 }
 
 .gallery-container {
@@ -36,36 +38,51 @@ body {
   text-shadow: 2px 2px 2px black;
   font-size: 3em;
 }
+.about-container {
+  display: flex;
+  justify-content: center;
+}
 
 .aboutImage {
-  width: 25%;
-  margin-left: 100px;
-  margin-top: 300px;
+  width: 50%;
 }
 
 .aboutTitle {
   display: flex;
   justify-content: center;
-  width: 2000px;
+  margin-bottom: 50px;
   color: black;
   font-size: 3em;
   font-family: 'Poiret One', sans-serif;
   font-weight: bold;
   font-style: normal;
 }
+
 .photo-container {
   column-count: 3;
   column-gap: 16px;
 }
 .photo-item {
- 
   margin-bottom: 16px;
   break-inside: avoid;
-  
 }
 
 .photo-item img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .photo-container {
+    column-count: 2; /* Fewer columns for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .photo-container {
+    column-count: 1; /* Single column for smaller screens */
+    width: 200px;
+  }
 }

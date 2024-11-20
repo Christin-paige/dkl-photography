@@ -8,7 +8,7 @@ export default function About() {
     const query = `*[_type == 'about']{
         title,
         slug,
-         contactInfo,
+        biography,
         profileImage{
           asset->{
           _id,
@@ -32,12 +32,14 @@ export default function About() {
 
   return (
     <>
-      <div>
+      <div className="about-container">
        
         {aboutData.map((item, index) => (
           <div key={index} className="aboutImage">
+            <div className="title-container">
             <h2 className="aboutTitle">{item.title}</h2>
-            
+            <p>{item.biography}</p>
+            </div>
             {item.profileImage ? (
               <img
                 src={item.profileImage.asset.url}
