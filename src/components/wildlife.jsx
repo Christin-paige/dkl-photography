@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import sanityClient from '../lib/sanityClient';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 
 export default function Wildlife() {
@@ -37,8 +35,7 @@ export default function Wildlife() {
   };
 
   return (
-    <Container>
-      <Row>
+    
         <div className="photo-container">
           {wildlifePhotos.map((item, index) => (
             <div key={index} className="photo-item">
@@ -83,7 +80,6 @@ export default function Wildlife() {
             </div>
           ))}
         </div>
-      </Row>
-    </Container>
+    
   );
 }
