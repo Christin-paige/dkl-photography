@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import sanityClient from '../lib/sanityClient';
 import Modal from 'react-bootstrap/Modal';
 
-
 export default function OutAndAbout() {
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);

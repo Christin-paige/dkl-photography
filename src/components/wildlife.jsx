@@ -47,7 +47,7 @@ export default function Wildlife() {
                 <img
                   src={item.image.asset.url}
                   alt={item.title}
-                  className="img-fluid"
+                  style={{ maxWidth: '100%', height: 'auto' }}
                   onClick={() => handleShow(item.image.asset.url)}
                 />
               ) : (
