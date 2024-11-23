@@ -17,7 +17,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/Wildlife" element={<Wildlife />} />
         <Route path="/Astro" element={<Astro />} />
-        <Route path="/OutAndAbout" element={<OutAndAbout />} />
+        <Route path="/out-and-about" element={<OutAndAbout />} />
       </Routes>
       <Footer />
     </>
