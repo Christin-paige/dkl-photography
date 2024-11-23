@@ -27,7 +27,12 @@ export const galleryType = defineType({
       name: 'photos',
       title: 'Photos',
       type: 'image',
-      
+    }),
+    defineField({
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      description: 'Used to order photos in the gallery',
     }),
     defineField({
       name: 'category',
