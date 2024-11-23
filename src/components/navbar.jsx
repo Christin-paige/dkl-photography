@@ -31,7 +31,9 @@ export default function NavBar() {
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+          <a href="https://www.instagram.com/dkl.24/" target="_blank">
           <BsInstagram className="instagram" size={25}/>
+          </a>
          
 
         </Container>

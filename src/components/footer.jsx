@@ -6,7 +6,9 @@ export default function Footer () {
         <div className="footer-container">
         <img alt="dkl-photography" src="/images/dkl-footer.jpeg" className="footer-logo" />{' '}
        
-        <BsInstagram size={25}/>
+        <a href="https://www.instagram.com/dkl.24/" target="_blank">
+          <BsInstagram className="instagram" size={25}/>
+          </a>
         </div>
         </>
     )

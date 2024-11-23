@@ -14,10 +14,14 @@ body {
 }
 
 .navBar .nav-link:hover {
-  color: #ffa500; /* Highlight color */
+  color: #f77737; /* Highlight color */
 }
 .instagram{
   width: 100px;
+  color:#5b51d8;
+}
+.instagram:hover {
+  color:#c13584;
 }
 
 .logo {
@@ -87,11 +91,7 @@ body {
  
 }
 /* Responsive styles */
-@media (max-width: 769px) {
-  .navBar {
-    width: 100px;
-  }
-}
+
 @media (max-width: 1024px) {
   .photo-container {
     column-count: 2; /* Fewer columns for tablets */
