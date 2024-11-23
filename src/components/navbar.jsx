@@ -31,7 +31,7 @@ export default function NavBar() {
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <BsInstagram className="instagram"/>
+          <BsInstagram className="instagram" size={25}/>
          
 
         </Container>

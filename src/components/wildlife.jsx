@@ -1,11 +1,14 @@
-import {useEffect, useState} from 'react'
-import sanityClient from '../lib/sanityClient'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
+import { useEffect, useState } from 'react';
+import sanityClient from '../lib/sanityClient';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Modal from 'react-bootstrap/Modal';
 
 export default function Wildlife() {
-  const [wildlifePhotos, setWildlifePhotos] = useState([])
+  const [fullscreen, setFullscreen] = useState(true);
+  const [show, setShow] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [wildlifePhotos, setWildlifePhotos] = useState([]);
 
   useEffect(() => {
     const query = `*[_type == 'photo' && category == 'wildlife'] {
@@ -16,40 +19,71 @@ export default function Wildlife() {
             url
             }
     }
-        }`
+        }`;
 
     sanityClient
       .fetch(query)
       .then((data) => {
-        console.log(data) // Check if photos are in the data
-        setWildlifePhotos(data)
+        console.log(data); // Check if photos are in the data
+        setWildlifePhotos(data);
       })
       .catch((error) => {
-        console.error('Sanity fetch error:', error)
-      })
-  }, [])
+        console.error('Sanity fetch error:', error);
+      });
+  }, []);
+  const handleShow = (photo) => {
+    setSelectedPhoto(photo); // Set the clicked photo
+    setShow(true);
+  };
 
   return (
     <Container>
       <Row>
-    
-          <div className="photo-container">
-          
-            {wildlifePhotos.map((item, index) => (
-               
-              <div key={index} className="photo-item">
-               
-                {/* Ensure that item.photos is an object and not an array */}
-                {item.image ? (
-                  <img src={item.image.asset.url} alt={item.title} className="img-fluid" />
-                ) : (
-                  <p>No photos avaliable</p>
-                )}
-              </div>
-            
-            ))}
-          </div>
+        <div className="photo-container">
+          {wildlifePhotos.map((item, index) => (
+            <div key={index} className="photo-item">
+              {/* Ensure that item.photos is an object and not an array */}
+              {item.image ? (
+                <img
+                  src={item.image.asset.url}
+                  alt={item.title}
+                  className="img-fluid"
+                  onClick={() => handleShow(item.image.asset.url)}
+                />
+              ) : (
+                <p>No photos avaliable</p>
+              )}
+              <Modal
+                show={show}
+                fullscreen={fullscreen}
+                onHide={() => setShow(false)}
+              >
+                <Modal.Header
+                  closeButton
+                  style={{
+                    backgroundColor: 'black',
+                    borderBottom: 'none',
+                  }}
+                ></Modal.Header>
+                <Modal.Body style={{ backgroundColor: 'black', padding: 0 }}>
+                  {selectedPhoto && (
+                    <img
+                      src={selectedPhoto}
+                      alt="Full-screen"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        display: 'block',
+                      }}
+                    />
+                  )}
+                </Modal.Body>
+              </Modal>
+            </div>
+          ))}
+        </div>
       </Row>
     </Container>
-  )
+  );
 }
