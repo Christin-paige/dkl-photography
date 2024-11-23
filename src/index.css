@@ -16,6 +16,9 @@ body {
 .navBar .nav-link:hover {
   color: #ffa500; /* Highlight color */
 }
+.instagram{
+  width: 100px;
+}
 
 .logo {
   height: 150px;
@@ -44,29 +47,12 @@ body {
   text-shadow: 2px 2px 2px black;
   font-size: 3em;
 }
-.about-container {
-  display: flex;
-  justify-content: center;
-}
 
-.aboutImage {
-  width: 50%;
-}
-
-.aboutTitle {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 50px;
-  color: black;
-  font-size: 3em;
-  font-family: 'Poiret One', sans-serif;
-  font-weight: bold;
-  font-style: normal;
-}
 
 .photo-container {
   column-count: 3;
   column-gap: 16px;
+  margin: 20px;
 }
 .photo-item {
   margin-bottom: 16px;
@@ -78,7 +64,18 @@ body {
   height: auto;
   display: block;
 }
-
+.footer-container{
+  border-top: solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.footer-logo{
+  width: 250px;
+ 
+}
 /* Responsive styles */
 @media (max-width: 769px) {
   .navBar {

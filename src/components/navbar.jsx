@@ -2,6 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { NavLink } from 'react-router-dom';
+import { BsInstagram } from "react-icons/bs";
+
 
 export default function NavBar() {
   return (
@@ -29,6 +31,9 @@ export default function NavBar() {
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+          <BsInstagram className="instagram"/>
+         
+
         </Container>
       </Navbar>
     </>
