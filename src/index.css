@@ -64,16 +64,20 @@ body {
   break-inside: avoid;
  
 }
-.photo-item:hover img {
-	transition: ease-in-out;
-	
-}
+
 
 .photo-item img {
   width: 100%;
   height: auto;
   display: block;
+  transition: box-shadow 0.3s ease;
   
+  
+}
+.photo-item img:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+	
 }
 .modal-header .btn-close {
   filter: invert(80%);
