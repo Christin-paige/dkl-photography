@@ -18,12 +18,13 @@ export default function Home() {
     const query = `*[_type == 'gallery']{
       title,
       slug,
+      order,
       photos{
         asset->{
         _id,
         url
         },
-        alt
+        alt,
         },
     }`
 
