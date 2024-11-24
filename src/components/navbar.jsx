@@ -25,7 +25,7 @@ export default function NavBar() {
               <Nav.Link to="/Astro" as={NavLink} className="mx-3">
                 Astro Photography
               </Nav.Link>
-              <Nav.Link to="/OutAndAbout" as={NavLink} className="mx-3">
+              <Nav.Link to="/out-and-about" as={NavLink} className="mx-3">
                 Out and About
               </Nav.Link>
             </Nav>
