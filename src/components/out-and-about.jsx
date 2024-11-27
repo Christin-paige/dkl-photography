@@ -7,7 +7,8 @@ export default function OutAndAbout() {
   const [show, setShow] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null); // Store the currently selected photo
   const [outAndAboutPhotos, setOutAndAboutPhotos] = useState([]);
-
+  const [allLoaded, setAllLoaded] = useState(false); // Track if all images are loaded
+  
   useEffect(() => {
     const query = `*[_type == 'photo' && category == 'out-and-about'] {
           title,
@@ -22,7 +23,6 @@ export default function OutAndAbout() {
     sanityClient
       .fetch(query)
       .then((data) => {
-        console.log(data); // Check if photos are in the data
         setOutAndAboutPhotos(data);
       })
       .catch((error) => {
@@ -34,9 +34,21 @@ export default function OutAndAbout() {
     setSelectedPhoto(photo); // Set the clicked photo
     setShow(true);
   };
+  const handleImageLoad = () => {
+    const loadedImages = document.querySelectorAll('.photo-item img.loaded');
+    if (loadedImages.length === outAndAboutPhotos.length) {
+      setAllLoaded(true); // Set to true once all images have loaded
+    }
+  };
 
   return (
-    <div className="photo-container">
+    <div
+      className="photo-container"
+      style={{
+        opacity: allLoaded ? 1 : 0, // Show only after all images load
+        transition: 'opacity 1s ease-in-out',
+      }}
+    >
       {outAndAboutPhotos.map((item, index) => (
         <div key={index} className="photo-item">
           {/* Ensure that item.photos is an object and not an array */}
@@ -44,41 +56,39 @@ export default function OutAndAbout() {
             <img
               src={item.image.asset.url}
               alt={item.title}
+              className="loaded"
               style={{ maxWidth: '100%', height: 'auto' }}
+              onLoad={handleImageLoad}
               onClick={() => handleShow(item.image.asset.url)}
             />
           ) : (
             <p>No photos avaliable</p>
           )}
-          <Modal
-            show={show}
-            fullscreen={fullscreen}
-            onHide={() => setShow(false)}
-          >
-            <Modal.Header
-              closeButton
-              style={{
-                backgroundColor: 'black',
-                borderBottom: 'none',
-              }}
-            ></Modal.Header>
-            <Modal.Body style={{ backgroundColor: 'black', padding: 0 }}>
-              {selectedPhoto && (
-                <img
-                  src={selectedPhoto}
-                  alt="Full-screen"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    display: 'block',
-                  }}
-                />
-              )}
-            </Modal.Body>
-          </Modal>
         </div>
       ))}
+      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+        <Modal.Header
+          closeButton
+          style={{
+            backgroundColor: 'black',
+            borderBottom: 'none',
+          }}
+        ></Modal.Header>
+        <Modal.Body style={{ backgroundColor: 'black', padding: 0 }}>
+          {selectedPhoto && (
+            <img
+              src={selectedPhoto}
+              alt="Full-screen"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                display: 'block',
+              }}
+            />
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

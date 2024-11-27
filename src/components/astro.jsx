@@ -7,6 +7,7 @@ export default function Astro() {
   const [show, setShow] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [astroPhotos, setAstroPhotos] = useState([]);
+  const [allLoaded, setAllLoaded] = useState(false);
 
   useEffect(() => {
     const query = `*[_type == 'photo' && category == 'astro'] {
@@ -22,7 +23,6 @@ export default function Astro() {
     sanityClient
       .fetch(query)
       .then((data) => {
-        console.log(data);
         setAstroPhotos(data);
       })
       .catch((error) => {
@@ -34,9 +34,21 @@ export default function Astro() {
     setSelectedPhoto(photo); // Set the clicked photo
     setShow(true);
   };
+  const handleImageLoad = () => {
+    const loadedImages = document.querySelectorAll('.photo-item img.loaded');
+    if (loadedImages.length === astroPhotos.length) {
+      setAllLoaded(true); // Set to true once all images have loaded
+    }
+  };
 
   return (
-    <div className="photo-container">
+    <div
+      className="photo-container"
+      style={{
+        opacity: allLoaded ? 1 : 0, // Show only after all images load
+        transition: 'opacity 1s ease-in-out',
+      }}
+    >
       {astroPhotos.map((item, index) => (
         <div key={index} className="photo-item">
           {/* Ensure that item.photos is an object and not an array */}
@@ -44,41 +56,39 @@ export default function Astro() {
             <img
               src={item.image.asset.url}
               alt={item.title}
+              className="loaded"
               style={{ maxWidth: '100%', height: 'auto' }}
+              onLoad={handleImageLoad}
               onClick={() => handleShow(item.image.asset.url)}
             />
           ) : (
             <p>No photos to available</p>
           )}
-          <Modal
-            show={show}
-            fullscreen={fullscreen}
-            onHide={() => setShow(false)}
-          >
-            <Modal.Header
-              closeButton
-              style={{
-                backgroundColor: 'black',
-                borderBottom: 'none',
-              }}
-            ></Modal.Header>
-            <Modal.Body style={{ backgroundColor: 'black', padding: 0 }}>
-              {selectedPhoto && (
-                <img
-                  src={selectedPhoto}
-                  alt="Full-screen"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    display: 'block',
-                  }}
-                />
-              )}
-            </Modal.Body>
-          </Modal>
         </div>
       ))}
+      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+        <Modal.Header
+          closeButton
+          style={{
+            backgroundColor: 'black',
+            borderBottom: 'none',
+          }}
+        ></Modal.Header>
+        <Modal.Body style={{ backgroundColor: 'black', padding: 0 }}>
+          {selectedPhoto && (
+            <img
+              src={selectedPhoto}
+              alt="Full-screen"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                display: 'block',
+              }}
+            />
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

@@ -16,12 +16,12 @@ body {
 .navBar .nav-link:hover {
   color: #f77737; /* Highlight color */
 }
-.instagram{
+.instagram {
   width: 100px;
-  color:#5b51d8;
+  color: #5b51d8;
 }
 .instagram:hover {
-  color:#c13584;
+  color: #c13584;
 }
 
 .logo {
@@ -33,12 +33,26 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .galleryImage {
   position: relative;
   width: 100%;
 }
-
 
 .galleryTitle {
   position: absolute;
@@ -53,36 +67,58 @@ body {
   font-size: 3em;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .photo-container {
   column-count: 3;
   column-gap: 16px;
   margin: 20px;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .photo-item {
   margin-bottom: 16px;
   break-inside: avoid;
- 
 }
-
 
 .photo-item img {
   width: 100%;
   height: auto;
   display: block;
   transition: box-shadow 0.3s ease;
-  
-  
 }
 .photo-item img:hover {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.8);
   cursor: pointer;
-	
 }
 .modal-header .btn-close {
   filter: invert(80%);
 }
-.footer-container{
+
+/* Footer fade-in effect */
+
+.footer-container {
   border-top: solid black;
   display: flex;
   flex-direction: column;
@@ -90,10 +126,15 @@ body {
   align-items: center;
   padding: 50px;
 }
-.footer-logo{
-  width: 250px;
- 
+
+.footer-container.fadeIn {
+  opacity: 1;
 }
+
+.footer-logo {
+  width: 250px;
+}
+
 /* Responsive styles */
 
 @media (max-width: 1024px) {

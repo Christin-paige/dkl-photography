@@ -1,18 +1,13 @@
 import { useState, useEffect } from 'react';
 import sanityClient from '../lib/sanityClient';
 import { useNavigate } from 'react-router-dom';
-//import imageUrlBuilder from '@sanity/image-url'
 
-// Set up the Sanity image URL builder
-//const builder = imageUrlBuilder(sanityClient)
 
-//function urlFor(source) {
-//return builder.image(source)
-//}
 
 export default function Home() {
   const [galleryData, setGalleryData] = useState([]);
   const navigate = useNavigate();
+ 
 
   useEffect(() => {
     const query = `*[_type == 'gallery']{
@@ -31,9 +26,8 @@ export default function Home() {
     sanityClient
       .fetch(query)
       .then((data) => {
-        // Sort galleries by order (ascending or descending)
-        const sortedData = data.sort((a, b) => a.order - b.order); // Change to b.order - a.order for descending
-        console.log(sortedData);
+        // Sort galleries by order (ascending to descending)
+        const sortedData = data.sort((a, b) => a.order - b.order);
         setGalleryData(sortedData);
       })
       .catch((error) => {
@@ -41,13 +35,17 @@ export default function Home() {
       });
   }, []);
 
+ 
+
   const handleClick = (slug) => {
     navigate(`/${slug}`);
   };
 
+ 
   return (
     <div>
       <div className="gallery-container">
+        <div className="loader">
         {galleryData.map((item, index) => (
           <div
             key={index}
@@ -55,13 +53,20 @@ export default function Home() {
             onClick={() => handleClick(item.slug.current)}
             style={{ cursor: 'pointer' }}
           >
+          
+
             <h2 className="galleryTitle">{item.title}</h2>
 
             {item.photos ? (
               <img
                 src={item.photos.asset.url}
                 alt={item.title}
-                style={{ maxWidth: '100%', height: 'auto' }}
+               
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  transition: 'opacity 0.5s ease-in-out',
+                }}
               />
             ) : (
               <p>No photos available</p>
@@ -69,6 +74,7 @@ export default function Home() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }
